@@ -13,6 +13,9 @@
 		CE7A9CC725E1C2BB00E00CB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7A9CC525E1C2BB00E00CB1 /* Main.storyboard */; };
 		CE7A9CC925E1C2BF00E00CB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7A9CC825E1C2BF00E00CB1 /* Assets.xcassets */; };
 		CE7A9CCC25E1C2BF00E00CB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7A9CCA25E1C2BF00E00CB1 /* LaunchScreen.storyboard */; };
+		CE7A9CD525E1CD8200E00CB1 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A9CD425E1CD8200E00CB1 /* InsertableTextField.swift */; };
+		CE7A9CD825E28B3900E00CB1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A9CD725E28B3900E00CB1 /* SignInViewController.swift */; };
+		CE7A9CDB25E291FF00E00CB1 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A9CDA25E291FF00E00CB1 /* PaymentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		CE7A9CC825E1C2BF00E00CB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE7A9CCB25E1C2BF00E00CB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE7A9CCD25E1C2BF00E00CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE7A9CD425E1CD8200E00CB1 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
+		CE7A9CD725E28B3900E00CB1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		CE7A9CDA25E291FF00E00CB1 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +66,12 @@
 				CE7A9CC125E1C2BB00E00CB1 /* SceneDelegate.swift */,
 				CE7A9CC325E1C2BB00E00CB1 /* ViewController.swift */,
 				CE7A9CC525E1C2BB00E00CB1 /* Main.storyboard */,
+				CE7A9CD425E1CD8200E00CB1 /* InsertableTextField.swift */,
 				CE7A9CC825E1C2BF00E00CB1 /* Assets.xcassets */,
 				CE7A9CCA25E1C2BF00E00CB1 /* LaunchScreen.storyboard */,
 				CE7A9CCD25E1C2BF00E00CB1 /* Info.plist */,
+				CE7A9CD725E28B3900E00CB1 /* SignInViewController.swift */,
+				CE7A9CDA25E291FF00E00CB1 /* PaymentViewController.swift */,
 			);
 			path = "Login Form App";
 			sourceTree = "<group>";
@@ -138,7 +147,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7A9CC425E1C2BB00E00CB1 /* ViewController.swift in Sources */,
+				CE7A9CDB25E291FF00E00CB1 /* PaymentViewController.swift in Sources */,
 				CE7A9CC025E1C2BB00E00CB1 /* AppDelegate.swift in Sources */,
+				CE7A9CD525E1CD8200E00CB1 /* InsertableTextField.swift in Sources */,
+				CE7A9CD825E28B3900E00CB1 /* SignInViewController.swift in Sources */,
 				CE7A9CC225E1C2BB00E00CB1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
