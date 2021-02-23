@@ -6,24 +6,8 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
-struct TestUnitResponse<T: Codable>: Codable {
-    
-   var success: String
-    var response: T
-
-}
-
-struct LoginData: Codable {
-    
-    var token: String
-}
-
-struct ErrorData: Codable {
-    
-    var error_msg: String
-    var error_code: Int
-}
 
 class SignInViewController: UIViewController {
 
@@ -40,14 +24,17 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func signinButtonTapped(_ sender: Any) {
-        print("LOGIN")
+        
+        
+        let userLogin = userNameTextField.text
+        let userPassword = userPasswordTextField.text
         
         //Validate required fields are not empty
-        if (userNameTextField.text?.isEmpty)! ||
-            (userPasswordTextField.text?.isEmpty)!
+        if (userLogin?.isEmpty)! ||
+            (userPassword?.isEmpty)!
         {
             //Display Alert message and return
-            displayMessage(userMessage: "All field are quired to fill in")
+            displayMessage(userMessage: "One of the required fields is missing")
             return
         }
         
@@ -66,14 +53,14 @@ class SignInViewController: UIViewController {
         view.addSubview(myActivityIndicator)
         
         
-        //Send HTTP Request
+        //Send HTTP Request to perform Sign in
         let baseURL = URL(string: "http://82.202.204.94/api/login")
         var request = URLRequest(url: baseURL!)
         request.httpMethod = "POST"
         request.setValue("12345", forHTTPHeaderField: "app-key")
         request.setValue("1", forHTTPHeaderField: "v")
 
-        let userData = ["login": userNameTextField.text!, "password": userPasswordTextField.text!]
+        let userData = ["login": userNameTextField.text!, "password": userPasswordTextField.text!] 
 
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: userData, options: .prettyPrinted)
@@ -85,14 +72,42 @@ class SignInViewController: UIViewController {
 
         
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            
             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+            
+            if error != nil {
+                
+                self.displayMessage(userMessage: "Could not successfully perform this request. Please try again later.")
+                print("error=\(String(describing: error))")
+                return
+            }
             
             do {
 
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let response = try decoder.decode(TestUnitResponse<LoginData>.self, from: data!)
+            
                 
-                let response = try JSONDecoder().decode(TestUnitResponse<LoginData>.self, from: data!)
-                print(response.response.token)
+                if let token = response.response?.token  {
+                    KeychainWrapper.standard.set(token, forKey: "token")
+                    print(token)
+                    
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "paymentSegue", sender: nil)
+                        
+                }
                 
+                    
+                } else  {
+                    
+                    if let errorMessage = response.error?.errorMsg {
+                        self.displayMessage(userMessage: errorMessage)
+                        return
+                    }
+                    
+
+                }
 
             } catch {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
@@ -115,7 +130,7 @@ class SignInViewController: UIViewController {
     func displayMessage(userMessage: String) -> Void {
         DispatchQueue.main.async
         {
-            let alertController = UIAlertController(title: "Alert", message: userMessage, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "", message: userMessage, preferredStyle: .alert)
 
             let OKAction = UIAlertAction(title: "OK", style: .default)
             { (action:UIAlertAction!) in

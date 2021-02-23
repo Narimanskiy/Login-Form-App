@@ -87,9 +87,11 @@
                             <constraint firstItem="HLV-jg-FWD" firstAttribute="top" secondItem="0ju-kN-bxM" secondAttribute="bottom" constant="18.5" id="vBa-3C-lqe"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="wfV-dD-lZL"/>
                     <connections>
                         <outlet property="userNameTextField" destination="Hvm-z7-UCm" id="7ra-2x-P6U"/>
                         <outlet property="userPasswordTextField" destination="z05-5o-J09" id="RPD-9P-iT3"/>
+                        <segue destination="A9q-oI-fJ2" kind="show" identifier="paymentSegue" id="FDv-AO-0wR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -101,15 +103,17 @@
             <objects>
                 <viewController storyboardIdentifier="PaymentViewController" id="A9q-oI-fJ2" customClass="PaymentViewController" customModule="Login_Form_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Z3-do-lQe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BACKGROUND" translatesAutoresizingMaskIntoConstraints="NO" id="6yO-ij-45s">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDj-z9-86c">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDj-z9-86c">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="tVN-WN-eJh"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="Payments" id="Cr8-KE-Z14">
                                         <barButtonItem key="rightBarButtonItem" title="Log out" id="E8U-sM-QO4">
@@ -120,38 +124,30 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g1-Ow-Qkn">
-                                <rect key="frame" x="111" y="105" width="192" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <state key="normal" title="Load Payments">
-                                    <color key="titleColor" red="0.81701284649999995" green="0.6802447438" blue="0.1015819684" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <color key="titleShadowColor" red="0.10980392160000001" green="0.16078431369999999" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loadPaymentsButtonTapped:" destination="A9q-oI-fJ2" eventType="touchUpInside" id="4CL-YG-Tez"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I73-VN-2HW">
-                                <rect key="frame" x="20" y="184" width="374" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.10980392160000001" green="0.16078431369999999" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YfT-RE-NRK">
+                                <rect key="frame" x="0.0" y="100" width="414" height="742"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6sW-ip-LyE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="bDj-z9-86c" firstAttribute="trailing" secondItem="YfT-RE-NRK" secondAttribute="trailing" id="BqH-Wd-6Kg"/>
                             <constraint firstAttribute="trailing" secondItem="6yO-ij-45s" secondAttribute="trailing" id="EGs-9W-KiV"/>
+                            <constraint firstAttribute="bottom" secondItem="YfT-RE-NRK" secondAttribute="bottom" id="FKE-M6-gkw"/>
+                            <constraint firstAttribute="trailing" secondItem="YfT-RE-NRK" secondAttribute="trailing" id="FjO-Bh-LYz"/>
+                            <constraint firstItem="bDj-z9-86c" firstAttribute="top" secondItem="6sW-ip-LyE" secondAttribute="top" constant="44" id="ITP-dU-OfB"/>
+                            <constraint firstItem="bDj-z9-86c" firstAttribute="leading" secondItem="YfT-RE-NRK" secondAttribute="leading" id="RDo-qF-gNR"/>
                             <constraint firstItem="6yO-ij-45s" firstAttribute="leading" secondItem="6Z3-do-lQe" secondAttribute="leading" id="fAp-WX-Pzo"/>
+                            <constraint firstItem="YfT-RE-NRK" firstAttribute="leading" secondItem="6Z3-do-lQe" secondAttribute="leading" id="g36-0K-Mjk"/>
                             <constraint firstAttribute="bottom" secondItem="6yO-ij-45s" secondAttribute="bottom" id="hDa-co-GP8"/>
                             <constraint firstItem="6yO-ij-45s" firstAttribute="top" secondItem="6Z3-do-lQe" secondAttribute="top" id="sO2-oi-xBv"/>
+                            <constraint firstItem="YfT-RE-NRK" firstAttribute="top" secondItem="bDj-z9-86c" secondAttribute="bottom" constant="12" id="suP-sK-690"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="E5e-9r-HlN"/>
                     <connections>
-                        <outlet property="userPaymentsLabel" destination="I73-VN-2HW" id="8Oh-IZ-rcl"/>
+                        <outlet property="paymentTableView" destination="YfT-RE-NRK" id="0Nu-CN-ELY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h79-j7-2Zb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
