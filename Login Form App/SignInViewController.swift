@@ -20,7 +20,6 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func signinButtonTapped(_ sender: Any) {
@@ -97,22 +96,17 @@ class SignInViewController: UIViewController {
                         self.performSegue(withIdentifier: "paymentSegue", sender: nil)
                         
                 }
-                
-                    
+        
                 } else  {
                     
                     if let errorMessage = response.error?.errorMsg {
                         self.displayMessage(userMessage: errorMessage)
                         return
                     }
-                    
-
                 }
-
             } catch {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
             }
-
         }
         task.resume()
 
@@ -124,7 +118,6 @@ class SignInViewController: UIViewController {
             activityIndicator.stopAnimating()
             activityIndicator.removeFromSuperview()
         }
-        
     }
     
     func displayMessage(userMessage: String) -> Void {
@@ -140,7 +133,6 @@ class SignInViewController: UIViewController {
                 {
                     self.dismiss(animated: true, completion: nil)
                 }
-
             }
             alertController.addAction(OKAction)
             self.present(alertController, animated: true, completion: nil)

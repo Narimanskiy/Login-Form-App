@@ -12,19 +12,33 @@ import SwiftKeychainWrapper
 class PaymentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var paymentsAll = [PaymentData]()
-    
+    var selectedIndex = NSIndexPath()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return paymentsAll.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndex = indexPath as NSIndexPath
+        tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath == selectedIndex as IndexPath {
+
+                return 100 //Size you want to increase to
+            }
+            return 50 // Default Size
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "allCell")
-
         let payment = paymentsAll[indexPath.row]
-        cell.textLabel?.text = payment.desc
-        cell.detailTextLabel?.text = String(payment.currency ?? "")
         
+        
+        cell.textLabel?.text = "\(payment.desc!) " + " \(String(describing: payment.amount))" + " Валюта: \(payment.currency ?? "")" + " Создано: \(String(describing: payment.created))"
+       
 
             return cell
     }
@@ -42,6 +56,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         paymentTableView.delegate = self
         paymentTableView.dataSource = self
+       
         
         
         
@@ -77,15 +92,18 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
 
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    decoder.dateDecodingStrategy = .secondsSince1970
                     let data = try decoder.decode(TestUnitResponse<[PaymentData]>.self, from: data!)
                     if let payments = data.response {
                         self.paymentsAll = payments
+                        print(self.paymentsAll)
                     } else {
                         if let errorMessage = data.error?.errorMsg {
                             self.displayMessage(userMessage: errorMessage)
                             return
                         }
                     }
+
                 } catch {
                     print("ebnulos")
                 }
