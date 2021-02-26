@@ -58,7 +58,10 @@ struct PaymentData: Codable {
         desc = try? values.decode(String.self, forKey: .desc)
     }
 
+    
+
 }
+
 
 func test() {
     let dataString = """
@@ -82,7 +85,9 @@ func test() {
         print(payment)
     }
 
-    test()
+    //test()
+   
+    
 }
 
 

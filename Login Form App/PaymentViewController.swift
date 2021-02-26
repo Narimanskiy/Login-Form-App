@@ -29,22 +29,20 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
 
                 return 100 //Size you want to increase to
             }
-            return 50 // Default Size
+            return 70 // Default Size
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "allCell")
         let payment = paymentsAll[indexPath.row]
         
-        
-        cell.textLabel?.text = "\(payment.desc!) " + " \(String(describing: payment.amount))" + " Валюта: \(payment.currency ?? "")" + " Создано: \(String(describing: payment.created))"
+        cell.textLabel?.text = " \(payment.desc!) " + " Сумма: \(payment.amount!)" + " Валюта: \(payment.currency ?? "")" + " Создано: \(payment.created!)"
+        cell.textLabel?.numberOfLines = 0
        
 
-            return cell
+        return cell
     }
     
-
-
     @IBOutlet weak var paymentTableView: UITableView!
     
     @IBAction func logOutButtonTapped(_ sender: Any) {
@@ -58,10 +56,6 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         paymentTableView.dataSource = self
        
         
-        
-        
-        
-        
         if let token = KeychainWrapper.standard.string(forKey: "token") {
             //Send HTTP request
             let baseURL = URL(string: "http://82.202.204.94/api/payments?token=\(token)")
@@ -69,15 +63,6 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
             request.httpMethod = "GET"
             request.addValue("12345", forHTTPHeaderField: "app-key")
             request.addValue("1", forHTTPHeaderField: "v")
-            
-    //        let params = ["token": token]
-    //
-    //        do {
-    //            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
-    //        } catch  {
-    //
-    //            return
-    //        }
             
             let task = URLSession.shared.dataTask(with: request) {
                 (data: Data?, response: URLResponse?, error: Error?) in
@@ -105,13 +90,8 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
                     }
 
                 } catch {
-                    print("ebnulos")
+                    print("Warning, something wrong!")
                 }
-        
-        
-
-            
-            
             
         }
             task.resume()

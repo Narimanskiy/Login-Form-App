@@ -90,7 +90,6 @@ class SignInViewController: UIViewController {
                 
                 if let token = response.response?.token  {
                     KeychainWrapper.standard.set(token, forKey: "token")
-                    print(token)
                     
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "paymentSegue", sender: nil)
@@ -128,7 +127,6 @@ class SignInViewController: UIViewController {
             let OKAction = UIAlertAction(title: "OK", style: .default)
             { (action:UIAlertAction!) in
                 //Code in this block will trigger when OK button tapped.
-                print("OK button tapped")
                 DispatchQueue.main.async
                 {
                     self.dismiss(animated: true, completion: nil)
